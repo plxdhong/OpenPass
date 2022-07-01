@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">点击修改 @User.Identity.Name!</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="https://cfew.rainballs.com" title="Cfew">CFEW系统</a>
+        </li>
+        @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdminRole")).Succeeded)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="RoleManager">总权限管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="UserRoles">角色权限管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Users">用户</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">注册</a>
+            </li>
+        }
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button type="submit" class="nav-link btn btn-link text-dark">登出</button>
+            </form>
+        </li>
+    }
+    else
+    {
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">登入</a>
+        </li>
+    }
+</ul>

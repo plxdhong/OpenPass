@@ -1,0 +1,25 @@
+﻿@page
+@model Disable2faModel
+@{
+    ViewData["Title"] = "Disable two-factor authentication (2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning" role="alert">
+    <p>
+        <strong>此操作仅禁用2FA。</strong>
+    </p>
+    <p>
+        禁用2FA不会更改身份验证器应用程序中使用的密钥。 如果您想更改身份验证器应用中使用的密钥，则应该
+        <a asp-page="./ResetAuthenticator">重设验证码。</a>
+    </p>
+</div>
+
+<div>
+    <form method="post" class="form-group">
+        <button class="btn btn-danger" type="submit">禁用2FA</button>
+    </form>
+</div>

@@ -1,0 +1,24 @@
+﻿@page
+@model ResetAuthenticatorModel
+@{
+    ViewData["Title"] = "Reset authenticator key";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>如果您重置身份验证器密钥，那么您的身份验证器应用程序将无法工作，直到您对其进行重新配置。</strong>
+    </p>
+    <p>
+        在您验证身份验证器应用程序之前，此过程将禁用2FA。
+        如果您未完成身份验证器应用程序配置，则可能无法访问您的帐户。
+    </p>
+</div>
+<div>
+    <form id="reset-authenticator-form" method="post" class="form-group">
+        <button id="reset-authenticator-button" class="btn btn-danger" type="submit">重置身份验证器密钥</button>
+    </form>
+</div>
